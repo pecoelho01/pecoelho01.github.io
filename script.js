@@ -33,7 +33,7 @@ function createProjectCard(repo, index) {
 async function loadProjects() {
   try {
     const response = await fetch(
-      `https://api.github.com/users/${pecoelho01}/repos?sort=updated&per_page=12`
+      `https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=12`
     );
 
     if (!response.ok) {
