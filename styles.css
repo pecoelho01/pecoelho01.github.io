@@ -9,7 +9,8 @@
   --shadow: 0 8px 28px rgba(28, 48, 34, 0.08);
 }
 
-[data-theme="dark"] {
+[data-theme="dark"],
+.theme-dark {
   --bg: #101511;
   --text: #e7efe8;
   --muted: #a9b7ab;
@@ -72,9 +73,16 @@ body {
   position: sticky;
   top: 0;
   backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  background: rgba(244, 247, 240, 0.75);
   border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
   background: color-mix(in srgb, var(--bg) 75%, transparent);
   z-index: 10;
+}
+
+[data-theme="dark"] .header,
+.theme-dark .header {
+  background: rgba(16, 21, 17, 0.78);
 }
 
 .nav {
@@ -189,7 +197,13 @@ h1 {
 .btn-ghost {
   color: var(--text);
   border-color: var(--line);
+  background: rgba(255, 255, 255, 0.75);
   background: color-mix(in srgb, var(--surface) 80%, transparent);
+}
+
+[data-theme="dark"] .btn-ghost,
+.theme-dark .btn-ghost {
+  background: rgba(23, 31, 25, 0.85);
 }
 
 .section {

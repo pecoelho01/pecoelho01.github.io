@@ -2,11 +2,16 @@ const githubUsername = "pecoelho01";
 const projectsGrid = document.getElementById("projects-grid");
 const themeToggle = document.getElementById("theme-toggle");
 const root = document.documentElement;
+const THEME_STORAGE_KEY = "theme";
 
 function getPreferredTheme() {
-  const storedTheme = localStorage.getItem("theme");
-  if (storedTheme === "light" || storedTheme === "dark") {
-    return storedTheme;
+  try {
+    const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    if (storedTheme === "light" || storedTheme === "dark") {
+      return storedTheme;
+    }
+  } catch (_error) {
+    // Continue with system preference when localStorage is unavailable.
   }
 
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -15,6 +20,13 @@ function getPreferredTheme() {
 
 function applyTheme(theme) {
   root.setAttribute("data-theme", theme);
+  if (document.body) {
+    document.body.classList.toggle("theme-dark", theme === "dark");
+    document.body.classList.toggle("theme-light", theme === "light");
+  }
+
+  root.style.colorScheme = theme;
+
   if (themeToggle) {
     themeToggle.textContent = theme === "dark" ? "Claro" : "Escuro";
   }
@@ -31,7 +43,11 @@ function setupThemeToggle() {
   themeToggle.addEventListener("click", () => {
     const currentTheme = root.getAttribute("data-theme") || "light";
     const nextTheme = currentTheme === "dark" ? "light" : "dark";
-    localStorage.setItem("theme", nextTheme);
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+    } catch (_error) {
+      // Ignore storage failures and still apply the selected theme.
+    }
     applyTheme(nextTheme);
   });
 }
@@ -96,9 +112,13 @@ async function loadProjects() {
   }
 
   const limitAttr = projectsGrid.dataset.limit;
-  const limit = Number.isInteger(Number(limitAttr)) && Number(limitAttr) > 0
-    ? Number(limitAttr)
-    : 12;
+  const parsedLimit = Number.parseInt(limitAttr || "", 10);
+  const path = window.location.pathname.replace(/\/+$/, "");
+  const isHomePage = path === "" || path.endsWith("/index.html");
+  const defaultLimit = isHomePage ? 3 : 100;
+  const limit = Number.isInteger(parsedLimit) && parsedLimit > 0
+    ? parsedLimit
+    : defaultLimit;
 
   try {
     const response = await fetch(
