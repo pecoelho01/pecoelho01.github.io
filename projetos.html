@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projetos | Pedro Coelho</title>
+    <meta
+      name="description"
+      content="Lista completa dos projetos públicos no GitHub."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+
+    <header class="header">
+      <nav class="nav container">
+        <a class="logo" href="index.html">PC</a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a class="active" href="projetos.html">Projetos</a>
+          <a href="sobre.html">Sobre</a>
+          <a href="contactos.html">Contactos</a>
+        </div>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Alternar tema">
+          Tema
+        </button>
+      </nav>
+    </header>
+
+    <main class="container page-main">
+      <section class="section page-intro">
+        <p class="tagline">GitHub</p>
+        <h1>Todos os projetos</h1>
+        <p class="hero-copy">
+          Lista completa dos seus repositórios públicos, atualizada automaticamente.
+        </p>
+      </section>
+
+      <section class="section">
+        <div id="projects-grid" class="projects-grid">
+          <p class="status">Carregando projetos...</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-content">
+        <p>Pedro Coelho</p>
+        <a href="contactos.html">Contactos</a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

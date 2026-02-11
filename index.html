@@ -22,54 +22,69 @@
 
     <header class="header">
       <nav class="nav container">
-        <a class="logo" href="#inicio">PC</a>
+        <a class="logo" href="index.html">PC</a>
         <div class="nav-links">
-          <a href="#projetos">Projetos</a>
-          <a href="#sobre">Sobre</a>
-          <a href="#contato">Contato</a>
+          <a class="active" href="index.html">Home</a>
+          <a href="projetos.html">Projetos</a>
+          <a href="sobre.html">Sobre</a>
+          <a href="contactos.html">Contactos</a>
         </div>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Alternar tema">
+          Tema
+        </button>
       </nav>
     </header>
 
     <main>
-      <section id="inicio" class="hero container">
+      <section class="hero container">
         <p class="tagline">Desenvolvedor</p>
         <h1>Oi, eu sou Pedro Coelho.</h1>
         <p class="hero-copy">
           Crio aplicações web com foco em desempenho, design e experiência.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#projetos">Ver projetos</a>
-          <a class="btn btn-ghost" target="_blank" rel="noreferrer" href="https://github.com/pecoelho01">GitHub</a>
+          <a class="btn btn-primary" href="projetos.html">Ver todos os projetos</a>
+          <a
+            class="btn btn-ghost"
+            target="_blank"
+            rel="noreferrer"
+            href="https://github.com/pecoelho01"
+            >GitHub</a
+          >
         </div>
       </section>
 
-      <section id="projetos" class="container section">
-        <div class="section-head">
-          <h2>Projetos em destaque</h2>
-          <p>Repositórios públicos carregados direto do GitHub.</p>
+      <section class="container section">
+        <div class="section-head split-head">
+          <div>
+            <h2>Projetos recentes</h2>
+            <p>Top 3 repositórios mais recentes.</p>
+          </div>
+          <a class="text-link" href="projetos.html">Ver todos</a>
         </div>
-        <div id="projects-grid" class="projects-grid">
+        <div id="projects-grid" class="projects-grid" data-limit="3">
           <p class="status">Carregando projetos...</p>
         </div>
       </section>
 
-      <section id="sobre" class="container section">
-        <div class="section-head">
-          <h2>Sobre mim</h2>
+      <section class="container section">
+        <div class="section-head split-head">
+          <div>
+            <h2>Sobre mim</h2>
+          </div>
+          <a class="text-link" href="sobre.html">Ler mais</a>
         </div>
         <p class="about-copy">
-          Sou estudante de Engenharia Informática no 2º ano, com forte ligação à programação e que gosta criar soluções que resolvam
-          problemas reais. Tenho bases essencialmente em Java e Python, desde jogos com lógica complexa até aplicações web com
-          dados em tempo real. Gosto de aprender de forma prática e de enfrentar desafios técnicos que me tirem da zona de conforto.
+          Sou estudante de Engenharia Informática no 2º ano e gosto de criar
+          soluções práticas para problemas reais, com foco em Java, Python e web.
         </p>
       </section>
     </main>
 
-    <footer id="contato" class="footer">
+    <footer class="footer">
       <div class="container footer-content">
         <p>Vamos conversar?</p>
-        <a href="mailto:seuemail@exemplo.com">pmcoelho406@gmail.com</a>
+        <a href="contactos.html">Ir para contactos</a>
       </div>
     </footer>
 
