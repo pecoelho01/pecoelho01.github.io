@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfólio | Pedro Coelho</title>
+    <meta
+      name="description"
+      content="Portfólio de projetos publicados no GitHub."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+
+    <header class="header">
+      <nav class="nav container">
+        <a class="logo" href="#inicio">PC</a>
+        <div class="nav-links">
+          <a href="#projetos">Projetos</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#contato">Contato</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section id="inicio" class="hero container">
+        <p class="tagline">Desenvolvedor</p>
+        <h1>Oi, eu sou Pedro Coelho.</h1>
+        <p class="hero-copy">
+          Crio aplicações web com foco em desempenho, design e experiência.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projetos">Ver projetos</a>
+          <a class="btn btn-ghost" target="_blank" rel="noreferrer" href="https://github.com/pecoelho01">GitHub</a>
+        </div>
+      </section>
+
+      <section id="projetos" class="container section">
+        <div class="section-head">
+          <h2>Projetos em destaque</h2>
+          <p>Repositórios públicos carregados direto do GitHub.</p>
+        </div>
+        <div id="projects-grid" class="projects-grid">
+          <p class="status">Carregando projetos...</p>
+        </div>
+      </section>
+
+      <section id="sobre" class="container section">
+        <div class="section-head">
+          <h2>Sobre mim</h2>
+        </div>
+        <p class="about-copy">
+          Sou desenvolvedor e gosto de transformar ideias em produtos reais.
+          Neste portfólio você encontra meus principais projetos e experimentos.
+        </p>
+      </section>
+    </main>
+
+    <footer id="contato" class="footer">
+      <div class="container footer-content">
+        <p>Vamos conversar?</p>
+        <a href="mailto:seuemail@exemplo.com">pmcoelho406@gmail.com</a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
