@@ -3,6 +3,14 @@ const projectsGrid = document.getElementById("projects-grid");
 const themeToggle = document.getElementById("theme-toggle");
 const root = document.documentElement;
 const THEME_STORAGE_KEY = "theme";
+const customProjectBriefs = {
+  // Adicione aqui explicacoes especificas por repositorio.
+  // Exemplo:
+  // "nome-do-repo": {
+  //   proposal: "O que o projeto propoe resolver.",
+  //   objective: "Objetivo principal e resultado esperado."
+  // }
+};
 
 function getPreferredTheme() {
   try {
@@ -60,23 +68,156 @@ function formatDate(date) {
   }).format(new Date(date));
 }
 
+function normalizeRepoName(name) {
+  return String(name || "").trim().toLowerCase();
+}
+
+function normalizeText(text) {
+  return String(text || "").trim();
+}
+
+function listTopics(topics) {
+  if (!Array.isArray(topics)) {
+    return [];
+  }
+
+  return topics
+    .map((topic) => normalizeText(topic))
+    .filter(Boolean)
+    .slice(0, 4);
+}
+
+function createFallbackProposal(repo) {
+  const description = normalizeText(repo.description);
+  if (description) {
+    return description;
+  }
+
+  const topics = listTopics(repo.topics);
+  if (topics.length) {
+    return `Projeto centrado em ${topics.join(", ")}.`;
+  }
+
+  if (repo.language) {
+    return `Projeto em ${repo.language} para resolver um problema pratico com codigo reutilizavel.`;
+  }
+
+  return "Projeto tecnico para resolver um problema real e evoluir continuamente.";
+}
+
+function createFallbackObjective(repo) {
+  const topics = listTopics(repo.topics);
+  const languagePart = repo.language ? ` em ${repo.language}` : "";
+
+  if (normalizeText(repo.homepage)) {
+    return `Entregar uma solucao funcional${languagePart}, com demonstracao publica e base para melhorias futuras.`;
+  }
+
+  if (topics.length) {
+    return `Consolidar competencias${languagePart} e produzir funcionalidades praticas na area de ${topics.join(", ")}.`;
+  }
+
+  return `Consolidar competencias${languagePart} e criar uma base solida para novas iteracoes.`;
+}
+
+function getProjectBrief(repo) {
+  const customBrief = customProjectBriefs[normalizeRepoName(repo.name)];
+  const proposal = normalizeText(customBrief && customBrief.proposal) || createFallbackProposal(repo);
+  const objective = normalizeText(customBrief && customBrief.objective) || createFallbackObjective(repo);
+
+  return { proposal, objective };
+}
+
+function createElement(tagName, className, textContent) {
+  const element = document.createElement(tagName);
+  if (className) {
+    element.className = className;
+  }
+  if (typeof textContent === "string") {
+    element.textContent = textContent;
+  }
+  return element;
+}
+
+function createProjectTopics(topics) {
+  const validTopics = listTopics(topics);
+  if (!validTopics.length) {
+    return null;
+  }
+
+  const list = createElement("ul", "project-topics");
+  validTopics.forEach((topic) => {
+    const item = createElement("li", "project-topic", topic);
+    list.appendChild(item);
+  });
+
+  return list;
+}
+
+function createBriefItem(label, value) {
+  const item = createElement("p", "project-brief-item");
+  const labelEl = createElement("span", "project-brief-label", `${label}:`);
+  const valueEl = createElement("span", "project-brief-value", value);
+  item.appendChild(labelEl);
+  item.appendChild(valueEl);
+  return item;
+}
+
+function normalizeUrl(url) {
+  const cleaned = normalizeText(url);
+  if (!cleaned) {
+    return "";
+  }
+  if (cleaned.startsWith("http://") || cleaned.startsWith("https://")) {
+    return cleaned;
+  }
+  return `https://${cleaned}`;
+}
+
 function createProjectCard(repo, index) {
   const card = document.createElement("article");
   card.className = "project-card";
   card.style.animationDelay = `${index * 80}ms`;
 
-  const description = repo.description || "Sem descrição disponível.";
+  const description = normalizeText(repo.description) || "Sem descricao curta disponivel.";
   const language = repo.language || "Sem linguagem";
+  const { proposal, objective } = getProjectBrief(repo);
+  const topicsList = createProjectTopics(repo.topics);
+  const demoUrl = normalizeUrl(repo.homepage);
 
-  card.innerHTML = `
-    <h3>${repo.name}</h3>
-    <p>${description}</p>
-    <div class="project-meta">
-      <span>${language}</span>
-      <span>${formatDate(repo.updated_at)}</span>
-    </div>
-    <a href="${repo.html_url}" target="_blank" rel="noreferrer">Abrir repositório</a>
-  `;
+  const title = createElement("h3", "", repo.name);
+  const descriptionEl = createElement("p", "project-description", description);
+  const brief = createElement("div", "project-brief");
+  brief.appendChild(createBriefItem("Proposta", proposal));
+  brief.appendChild(createBriefItem("Objetivo", objective));
+
+  const meta = createElement("div", "project-meta");
+  meta.appendChild(createElement("span", "", language));
+  meta.appendChild(createElement("span", "", formatDate(repo.updated_at)));
+
+  const actions = createElement("div", "project-actions");
+  const repoLink = createElement("a", "", "Abrir repositorio");
+  repoLink.href = repo.html_url;
+  repoLink.target = "_blank";
+  repoLink.rel = "noreferrer";
+  actions.appendChild(repoLink);
+
+  if (demoUrl) {
+    const demoLink = createElement("a", "", "Ver demo");
+    demoLink.href = demoUrl;
+    demoLink.target = "_blank";
+    demoLink.rel = "noreferrer";
+    actions.appendChild(demoLink);
+  }
+
+  card.appendChild(title);
+  card.appendChild(descriptionEl);
+  if (topicsList) {
+    card.appendChild(topicsList);
+  }
+  card.appendChild(brief);
+  card.appendChild(meta);
+  card.appendChild(actions);
 
   return card;
 }
