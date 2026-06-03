@@ -180,12 +180,20 @@ function normalizeUrl(url) {
   return `https://${cleaned}`;
 }
 
+function getDetectedLanguage(repo) {
+  if (normalizeRepoName(repo.name) === normalizeRepoName(githubUsername)) {
+    return normalizeText(repo.detected_language) || normalizeText(repo.language) || "Perfil GitHub";
+  }
+
+  return normalizeText(repo.detected_language) || normalizeText(repo.language) || "Sem linguagem";
+}
+
 function createProjectCard(repo, index) {
   const card = document.createElement("article");
   card.className = "project-card";
   card.style.animationDelay = `${(index + 1) * 50}ms`;
 
-  const language = repo.language || "Sem linguagem";
+  const language = getDetectedLanguage(repo);
   const description = normalizeText(repo.description) || "Projeto GitHub";
   const demoUrl = normalizeUrl(repo.homepage);
 
@@ -207,6 +215,40 @@ function createProjectCard(repo, index) {
   card.appendChild(title);
 
   return card;
+}
+
+async function fetchRepoLanguage(repo) {
+  if (normalizeText(repo.language) || !normalizeText(repo.languages_url)) {
+    return repo;
+  }
+
+  try {
+    const response = await fetch(repo.languages_url, {
+      headers: {
+        Accept: "application/vnd.github+json",
+      },
+    });
+
+    if (!response.ok) {
+      return repo;
+    }
+
+    const languages = await response.json();
+    const detectedLanguage = Object.entries(languages)
+      .sort((first, second) => second[1] - first[1])
+      .map(([language]) => language)[0];
+
+    return {
+      ...repo,
+      detected_language: detectedLanguage || "",
+    };
+  } catch (_error) {
+    return repo;
+  }
+}
+
+async function enrichRepositoryLanguages(repos) {
+  return Promise.all(repos.map((repo) => fetchRepoLanguage(repo)));
 }
 
 function renderStatus(message) {
@@ -281,8 +323,10 @@ async function loadProjects() {
       return;
     }
 
+    const enrichedRepos = await enrichRepositoryLanguages(filtered);
+
     projectsGrid.innerHTML = "";
-    filtered.forEach((repo, index) => {
+    enrichedRepos.forEach((repo, index) => {
       projectsGrid.appendChild(createProjectCard(repo, index));
     });
   } catch (error) {
