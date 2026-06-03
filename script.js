@@ -4,10 +4,10 @@ const themeToggle = document.getElementById("theme-toggle");
 const root = document.documentElement;
 const THEME_STORAGE_KEY = "theme";
 const customProjectBriefs = {
-  // Adicione aqui explicacoes especificas por repositorio.
+  // Adicione aqui explicações específicas por repositório.
   // Exemplo:
   // "nome-do-repo": {
-  //   proposal: "O que o projeto propoe resolver.",
+  //   proposal: "O que o projeto propõe resolver.",
   //   objective: "Objetivo principal e resultado esperado."
   // }
 };
@@ -36,7 +36,13 @@ function applyTheme(theme) {
   root.style.colorScheme = theme;
 
   if (themeToggle) {
-    themeToggle.textContent = theme === "dark" ? "Claro" : "Escuro";
+    themeToggle.setAttribute(
+      "aria-label",
+      theme === "dark" ? "Mudar para modo claro" : "Mudar para modo escuro"
+    );
+    themeToggle.innerHTML = theme === "dark"
+      ? '<svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>'
+      : '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 14.8A8.5 8.5 0 0 1 9.2 4a7.2 7.2 0 1 0 10.8 10.8Z"></path></svg>';
   }
 }
 
@@ -61,7 +67,7 @@ function setupThemeToggle() {
 }
 
 function formatDate(date) {
-  return new Intl.DateTimeFormat("pt-BR", {
+  return new Intl.DateTimeFormat("pt-PT", {
     day: "2-digit",
     month: "short",
     year: "numeric",
@@ -99,10 +105,10 @@ function createFallbackProposal(repo) {
   }
 
   if (repo.language) {
-    return `Projeto em ${repo.language} para resolver um problema pratico com codigo reutilizavel.`;
+    return `Projeto em ${repo.language} para resolver um problema prático com código reutilizável.`;
   }
 
-  return "Projeto tecnico para resolver um problema real e evoluir continuamente.";
+  return "Projeto técnico para resolver um problema real e evoluir continuamente.";
 }
 
 function createFallbackObjective(repo) {
@@ -110,14 +116,14 @@ function createFallbackObjective(repo) {
   const languagePart = repo.language ? ` em ${repo.language}` : "";
 
   if (normalizeText(repo.homepage)) {
-    return `Entregar uma solucao funcional${languagePart}, com demonstracao publica e base para melhorias futuras.`;
+    return `Entregar uma solução funcional${languagePart}, com demonstração pública e base para melhorias futuras.`;
   }
 
   if (topics.length) {
-    return `Consolidar competencias${languagePart} e produzir funcionalidades praticas na area de ${topics.join(", ")}.`;
+    return `Consolidar competências${languagePart} e produzir funcionalidades práticas na área de ${topics.join(", ")}.`;
   }
 
-  return `Consolidar competencias${languagePart} e criar uma base solida para novas iteracoes.`;
+  return `Consolidar competências${languagePart} e criar uma base sólida para novas iterações.`;
 }
 
 function getProjectBrief(repo) {
@@ -177,47 +183,28 @@ function normalizeUrl(url) {
 function createProjectCard(repo, index) {
   const card = document.createElement("article");
   card.className = "project-card";
-  card.style.animationDelay = `${index * 80}ms`;
+  card.style.animationDelay = `${(index + 1) * 50}ms`;
 
-  const description = normalizeText(repo.description) || "Sem descricao curta disponivel.";
   const language = repo.language || "Sem linguagem";
-  const { proposal, objective } = getProjectBrief(repo);
-  const topicsList = createProjectTopics(repo.topics);
+  const description = normalizeText(repo.description) || "Projeto GitHub";
   const demoUrl = normalizeUrl(repo.homepage);
 
-  const title = createElement("h3", "", repo.name);
-  const descriptionEl = createElement("p", "project-description", description);
-  const brief = createElement("div", "project-brief");
-  brief.appendChild(createBriefItem("Proposta", proposal));
-  brief.appendChild(createBriefItem("Objetivo", objective));
+  const title = createElement("h3");
+  const primaryLink = createElement("a");
+  primaryLink.href = demoUrl || repo.html_url;
+  primaryLink.target = "_blank";
+  primaryLink.rel = "noreferrer";
+  primaryLink.appendChild(createElement("span", "project-description", description));
+  primaryLink.appendChild(createElement("span", "project-title-text", repo.name));
 
   const meta = createElement("div", "project-meta");
-  meta.appendChild(createElement("span", "", language));
-  meta.appendChild(createElement("span", "", formatDate(repo.updated_at)));
+  meta.appendChild(createElement("span", "", `${language} · ${formatDate(repo.updated_at)}`));
+  meta.appendChild(createElement("span", "arrow", "->"));
+  primaryLink.appendChild(meta);
 
-  const actions = createElement("div", "project-actions");
-  const repoLink = createElement("a", "", "Abrir repositorio");
-  repoLink.href = repo.html_url;
-  repoLink.target = "_blank";
-  repoLink.rel = "noreferrer";
-  actions.appendChild(repoLink);
-
-  if (demoUrl) {
-    const demoLink = createElement("a", "", "Ver demo");
-    demoLink.href = demoUrl;
-    demoLink.target = "_blank";
-    demoLink.rel = "noreferrer";
-    actions.appendChild(demoLink);
-  }
+  title.appendChild(primaryLink);
 
   card.appendChild(title);
-  card.appendChild(descriptionEl);
-  if (topicsList) {
-    card.appendChild(topicsList);
-  }
-  card.appendChild(brief);
-  card.appendChild(meta);
-  card.appendChild(actions);
 
   return card;
 }

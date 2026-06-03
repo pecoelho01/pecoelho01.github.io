@@ -1,67 +1,46 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sobre | Pedro Coelho</title>
-    <meta
-      name="description"
-      content="Mais detalhes sobre a trajetória e objetivos do Pedro Coelho."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css?v=20260211c" />
+    <meta name="description" content="Percurso, interesses e objetivos de Pedro Coelho." />
+    <link rel="stylesheet" href="styles.css?v=20260603c" />
   </head>
   <body>
-    <div class="bg-shape bg-shape-1"></div>
-    <div class="bg-shape bg-shape-2"></div>
-
-    <header class="header">
-      <nav class="nav container">
-        <a class="logo" href="index.html">PC</a>
-        <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="projetos.html">Projetos</a>
-          <a class="active" href="sobre.html">Sobre</a>
-          <a href="contactos.html">Contactos</a>
-        </div>
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Alternar tema">
-          Tema
-        </button>
+    <main class="page">
+      <nav class="top-links" aria-label="Navegação principal">
+        <a href="index.html">Pedro Coelho</a>
+        <a href="projetos.html">Projetos<span class="arrow">-&gt;</span></a>
+        <a href="contactos.html">Contactos<span class="arrow">-&gt;</span></a>
       </nav>
-    </header>
 
-    <main class="container page-main">
-      <section class="section page-intro">
-        <p class="tagline">Sobre mim</p>
-        <h1>Quem sou eu</h1>
+      <section class="intro compact">
+        <h1>Sobre</h1>
+        <p class="lead">Estudante de Engenharia Informática no 2.º ano.</p>
       </section>
 
-      <section class="section prose">
+      <section class="block text">
         <p>
-          Sou estudante de Engenharia Informática no 2º ano, com forte ligação à
-          programação e motivação por criar soluções com impacto real. Gosto de
-          transformar ideias em produtos utilizáveis.
+          Tenho uma forte ligação à programação e gosto de criar soluções com
+          impacto real. Tento perceber bem o problema antes de implementar e
+          evoluir o código por iteração.
         </p>
         <p>
-          As minhas "main" languages são Java e Python.
-          Interesso-me por desafios que exijam raciocínio lógico, melhoria contínua
-          e autonomia para aprender novas tecnologias rapidamente.
+          As minhas principais linguagens são Java e Python. Também exploro
+          desenvolvimento web e projetos que exigem raciocínio lógico, autonomia
+          e aprendizagem rápida.
         </p>
+      </section>
+
+      <section class="block">
+        <p class="section-label">Links</p>
+        <nav class="link-column" aria-label="Links relacionados">
+          <a href="files/CV-PT.pdf">CV<span class="arrow">-&gt;</span></a>
+          <a href="projetos.html">Projetos<span class="arrow">-&gt;</span></a>
+          <a href="https://github.com/pecoelho01" target="_blank" rel="noreferrer">GitHub<span class="arrow">-&gt;</span></a>
+        </nav>
       </section>
     </main>
-
-    <footer class="footer">
-      <div class="container footer-content">
-        <p>Pedro Coelho</p>
-        <a href="contactos.html">Vamos falar</a>
-      </div>
-    </footer>
-
-    <script src="script.js?v=20260211c"></script>
   </body>
 </html>

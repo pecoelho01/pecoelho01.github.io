@@ -1,72 +1,32 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contactos | Pedro Coelho</title>
-    <meta
-      name="description"
-      content="Página de contactos e redes sociais do Pedro Coelho."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css?v=20260211c" />
+    <meta name="description" content="Contactos e redes de Pedro Coelho." />
+    <link rel="stylesheet" href="styles.css?v=20260603c" />
   </head>
   <body>
-    <div class="bg-shape bg-shape-1"></div>
-    <div class="bg-shape bg-shape-2"></div>
-
-    <header class="header">
-      <nav class="nav container">
-        <a class="logo" href="index.html">PC</a>
-        <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="projetos.html">Projetos</a>
-          <a href="sobre.html">Sobre</a>
-          <a class="active" href="contactos.html">Contactos</a>
-        </div>
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Alternar tema">
-          Tema
-        </button>
+    <main class="page">
+      <nav class="top-links" aria-label="Navegação principal">
+        <a href="index.html">Pedro Coelho</a>
+        <a href="sobre.html">Sobre<span class="arrow">-&gt;</span></a>
+        <a href="projetos.html">Projetos<span class="arrow">-&gt;</span></a>
       </nav>
-    </header>
 
-    <main class="container page-main">
-      <section class="section page-intro">
-        <p class="tagline">Contactos</p>
-        <h1>Fala comigo</h1>
-        <p class="hero-copy">
-          Escolhe a plataforma que preferires para entrarmos em contacto.
-        </p>
+      <section class="intro compact">
+        <h1>Contactos</h1>
+        <p class="lead">Email, GitHub e LinkedIn.</p>
       </section>
 
-      <section class="section social-grid">
-        <a class="social-card" href="https://github.com/pecoelho01" target="_blank" rel="noreferrer">
-          <h3>GitHub</h3>
-          <p>@pecoelho01</p>
-        </a>
-        <a class="social-card" href="mailto:pmcoelho406@gmail.com">
-          <h3>Email</h3>
-          <p>pmcoelho406@gmail.com</p>
-        </a>
-        <a class="social-card" href="https://www.linkedin.com/in/pecoelhoo01/" target="_blank" rel="noreferrer">
-          <h3>LinkedIn</h3>
-          <p>@pecoelho01</p>
-        </a>
+      <section class="block">
+        <nav class="link-column contact-links" aria-label="Contactos">
+          <a href="mailto:pmcoelho406@gmail.com">Email: pmcoelho406@gmail.com<span class="arrow">-&gt;</span></a>
+          <a href="https://github.com/pecoelho01" target="_blank" rel="noreferrer">GitHub: @pecoelho01<span class="arrow">-&gt;</span></a>
+          <a href="https://www.linkedin.com/in/pecoelhoo01/" target="_blank" rel="noreferrer">LinkedIn: @pecoelhoo01<span class="arrow">-&gt;</span></a>
+        </nav>
       </section>
     </main>
-
-    <footer class="footer">
-      <div class="container footer-content">
-        <p>Pedro Coelho</p>
-        <a href="projetos.html">Ver projetos</a>
-      </div>
-    </footer>
-
-    <script src="script.js?v=20260211c"></script>
   </body>
 </html>
